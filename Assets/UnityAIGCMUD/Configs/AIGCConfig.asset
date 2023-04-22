@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fca01a85eb6a496fbd15ff75b93a59e, type: 3}
+  m_Name: AIGCConfig
+  m_EditorClassIdentifier: 
+  text2ImageService: {fileID: 11400000, guid: 85ed6d7eea001440494f6f46214cfb0e, type: 2}
+  text2TextService: {fileID: 11400000, guid: 6c83ecabf7fc447219ff9a0db2c4fe15, type: 2}
