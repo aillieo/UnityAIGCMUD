@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d96b9fc0595b54638a76cff8b35e0908, type: 3}
   m_Name: OpenAIChatGPT
   m_EditorClassIdentifier: 
+  url: https://api.openai.com/v1/chat/completions
+  apiKey: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  temperature: 1
+  model: gpt-3.5-turbo
+  systemPrompt: 

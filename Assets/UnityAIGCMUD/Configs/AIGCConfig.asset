@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fca01a85eb6a496fbd15ff75b93a59e, type: 3}
   m_Name: AIGCConfig
   m_EditorClassIdentifier: 
-  text2ImageService: {fileID: 11400000, guid: 85ed6d7eea001440494f6f46214cfb0e, type: 2}
-  text2TextService: {fileID: 11400000, guid: 6c83ecabf7fc447219ff9a0db2c4fe15, type: 2}
+  text2TextService: {fileID: 0}
+  text2ImageService: {fileID: 0}
+  settings:
+    background: 

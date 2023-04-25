@@ -1,5 +1,6 @@
 namespace AillieoUtils.AIGC.Editor
 {
+    using System;
     using UnityEditor;
     using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace AillieoUtils.AIGC.Editor
         private string validationErrorMessage;
 
         private bool validationStateUpdated;
+
+        private bool disableButton;
 
         public override void OnInspectorGUI()
         {
@@ -30,23 +33,43 @@ namespace AillieoUtils.AIGC.Editor
                 EditorGUILayout.HelpBox("Unknown state", MessageType.Warning);
             }
 
+            EditorGUI.BeginDisabledGroup(disableButton);
+
             if (GUILayout.Button("Validate service"))
             {
-                AIGCService service = this.target as AIGCService;
-                if (service != null)
+                ValidteAsync();
+            }
+
+            EditorGUI.EndDisabledGroup();
+        }
+
+        private async void ValidteAsync()
+        {
+            AIGCService service = this.target as AIGCService;
+
+            if (service != null)
+            {
+                disableButton = true;
+
+                try
                 {
-                    if (service.Validate(out this.validationErrorMessage))
+                    bool valid = await service.Validate();
+                    if (valid)
                     {
                         this.validationErrorMessage = null;
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(this.validationErrorMessage))
-                        {
-                            this.validationErrorMessage = "Something wrong";
-                        }
+                        this.validationErrorMessage = "service may not work";
                     }
                 }
+                catch (Exception e)
+                {
+                    Debug.LogException(e);
+                    this.validationErrorMessage = e.Message;
+                }
+
+                disableButton = false;
             }
         }
     }

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4837e17e4a95d47b4974db5a62691247, type: 3}
   m_Name: OpenAIDALLE
   m_EditorClassIdentifier: 
+  url: https://api.openai.com/v1/images/generations
+  apiKey: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

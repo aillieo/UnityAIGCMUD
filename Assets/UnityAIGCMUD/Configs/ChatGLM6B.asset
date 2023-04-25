@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca42972d29fdf4f5688087d7b760a878, type: 3}
   m_Name: ChatGLM6B
   m_EditorClassIdentifier: 
+  url: localhost:8000

@@ -4,6 +4,8 @@ namespace AillieoUtils.AIGC
 
     public abstract class Text2ImageService : AIGCService
     {
-        public abstract Task<ImageResponse> RequestImageAsync(string prompt);
+        public abstract Task<IText2ImageConext> Initialize();
+
+        public abstract Task<IImageResponse> RequestImageAsync(string prompt);
     }
 }
