@@ -1,11 +1,12 @@
 namespace AillieoUtils.MUD
 {
-    using UnityEngine;
+    using AillieoUtils.AIGC;
 
     public class SectionData
     {
-        public string text;
-        public string[] choices;
-        public Texture2D texture;
+        public readonly TextProperty text = new TextProperty();
+        public readonly ArrayProperty<string> choices = new ArrayProperty<string>();
+        public readonly TextProperty imagePrompt = new TextProperty();
+        public readonly TextureProperty image = new TextureProperty();
     }
 }

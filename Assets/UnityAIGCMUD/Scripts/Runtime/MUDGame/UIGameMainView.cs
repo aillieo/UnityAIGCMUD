@@ -10,6 +10,9 @@ namespace AillieoUtils.MUD
         private RawImage sceneImage;
 
         [SerializeField]
+        private RawImage sceneImageBack;
+
+        [SerializeField]
         private Text descriptionText;
 
         [SerializeField]
@@ -29,6 +32,11 @@ namespace AillieoUtils.MUD
             MUDGameManager.instance.onBeginRequest += this.OnBeginRequest;
             MUDGameManager.instance.onEndRequest += this.OnEndRequest;
             MUDGameManager.instance.onGameOver += this.OnGameOver;
+
+            MUDGameManager.instance.model.text.onValueChanged += this.OnDescriptionTextChanged;
+            MUDGameManager.instance.model.choices.onLengthChanged += this.OnChoiceCountChanged;
+            MUDGameManager.instance.model.choices.onValueChanged += this.OnChoiceContentChanged;
+            MUDGameManager.instance.model.image.onValueChanged += this.OnImageChanged;
         }
 
         private void OnDisable()
@@ -37,11 +45,15 @@ namespace AillieoUtils.MUD
             MUDGameManager.instance.onBeginRequest -= this.OnBeginRequest;
             MUDGameManager.instance.onEndRequest -= this.OnEndRequest;
             MUDGameManager.instance.onGameOver -= this.OnGameOver;
+
+            MUDGameManager.instance.model.text.onValueChanged -= this.OnDescriptionTextChanged;
+            MUDGameManager.instance.model.choices.onLengthChanged -= this.OnChoiceCountChanged;
+            MUDGameManager.instance.model.choices.onValueChanged -= this.OnChoiceContentChanged;
+            MUDGameManager.instance.model.image.onValueChanged -= this.OnImageChanged;
         }
 
-        private void OnGameStart(SectionData sectionData)
+        private void OnGameStart()
         {
-            this.ReloadView(sectionData);
         }
 
         private void OnGameOver()
@@ -56,13 +68,24 @@ namespace AillieoUtils.MUD
             }
         }
 
-        private void OnEndRequest(SectionData sectionData)
+        private void OnEndRequest()
         {
-            this.ReloadView(sectionData);
+            foreach (var button in this.choicesButtons)
+            {
+                button.SetInteractable(true);
+            }
         }
 
-        private void ReloadView(SectionData sectionData)
+        private void OnDescriptionTextChanged()
         {
+            SectionData sectionData = MUDGameManager.instance.model;
+            this.descriptionText.text = sectionData.text.Value;
+        }
+
+        private void OnChoiceCountChanged()
+        {
+            SectionData sectionData = MUDGameManager.instance.model;
+
             int choiceCount = sectionData.choices.Length;
 
             while (this.choicesButtons.Count < choiceCount)
@@ -77,15 +100,26 @@ namespace AillieoUtils.MUD
                 this.choicesButtons.RemoveAt(lastIndex);
                 Destroy(last.gameObject);
             }
+        }
 
-            for (int i = 0; i < choiceCount; ++i)
+        private void OnChoiceContentChanged(int index)
+        {
+            SectionData sectionData = MUDGameManager.instance.model;
+            string text = sectionData.choices[index];
+            if (string.IsNullOrEmpty(text))
             {
-                this.choicesButtons[i].SetInteractable(true);
-                this.choicesButtons[i].SetTextContent(sectionData.choices[i]);
+                text = MUDGameManager.instance.mudSettings.defaultOption;
             }
 
-            this.descriptionText.text = sectionData.text;
-            this.sceneImage.texture = sectionData.texture;
+            this.choicesButtons[index].SetTextContent(text);
+        }
+
+        private void OnImageChanged()
+        {
+            SectionData sectionData = MUDGameManager.instance.model;
+
+            this.sceneImage.texture = sectionData.image.Value;
+            this.sceneImageBack.texture = sectionData.image.Value;
         }
     }
 }

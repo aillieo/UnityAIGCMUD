@@ -17,11 +17,13 @@ namespace AillieoUtils.MUD
         {
         }
 
-        public event Action<SectionData> onGameStart;
+        public readonly SectionData model = new SectionData();
+
+        public event Action onGameStart;
 
         public event Action onBeginRequest;
 
-        public event Action<SectionData> onEndRequest;
+        public event Action onEndRequest;
 
         public event Action onGameOver;
 
@@ -40,36 +42,42 @@ namespace AillieoUtils.MUD
             return true;
         }
 
+        public GameConfig.MUDGameSettings mudSettings { get { return this.config.mudSettings; } }
+
         public void RequestGameStart()
         {
-            SectionData section = new SectionData();
-            section.text = config.mudSettings.background;
-            section.choices = new string[] { "开始游戏" };
+            model.text.Value = null;
+            model.text.Value += config.mudSettings.introText;
+            model.choices.Clear().Add(config.mudSettings.gameStartText);
+            model.image.Value = null;
 
-            this.onGameStart?.Invoke(section);
+            this.onGameStart?.Invoke();
         }
 
-        public async Task<SectionData> Send(string optionText)
+        public async Task Send(string optionText)
         {
             onBeginRequest?.Invoke();
 
             ITextResponse textResponse = await this.config.text2Text.RequestTextAsync(optionText, this.text2TextConext);
 
-            SectionData sectionData = new SectionData();
+            model.text.Value = string.Empty;
+            textResponse.GetDescription(model.text);
 
-            sectionData.text = textResponse.GetDescription();
-            sectionData.choices = textResponse.GetChoices();
+            model.choices.Clear();
+            textResponse.GetChoices(model.choices);
 
-            string imagePrompt = textResponse.GetImagePrompt();
-            if (!string.IsNullOrEmpty(imagePrompt))
+            textResponse.GetImagePrompt(model.imagePrompt);
+            if (!string.IsNullOrEmpty(model.imagePrompt.Value))
             {
-                IImageResponse imageResponse = await this.config.text2Image.RequestImageAsync(imagePrompt);
-                sectionData.texture = imageResponse.GetImage();
+                IImageResponse imageResponse = await this.config.text2Image.RequestImageAsync(model.imagePrompt.Value);
+                imageResponse.GetImage(model.image);
+            }
+            else
+            {
+                model.image.Value = null;
             }
 
-            onEndRequest?.Invoke(sectionData);
-
-            return sectionData;
+            onEndRequest?.Invoke();
         }
     }
 }

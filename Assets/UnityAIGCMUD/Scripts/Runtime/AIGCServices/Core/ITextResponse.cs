@@ -2,10 +2,10 @@ namespace AillieoUtils.AIGC
 {
     public interface ITextResponse
     {
-        string GetDescription();
+        void GetDescription(TextProperty textProperty);
 
-        string[] GetChoices();
+        void GetChoices(ArrayProperty<string> arrayProperty);
 
-        string GetImagePrompt();
+        void GetImagePrompt(TextProperty textProperty);
     }
 }

@@ -28,9 +28,10 @@ namespace AillieoUtils.AIGC.Implements
 
             public ImageData[] data;
 
-            public Texture2D GetImage()
+            public void GetImage(TextureProperty textureProperty)
             {
-                return Utils.LoadImageFromBase64(data[0].b64_json);
+                Texture2D texture = Utils.LoadImageFromBase64(data[0].b64_json);
+                textureProperty.Value = texture;
             }
         }
 

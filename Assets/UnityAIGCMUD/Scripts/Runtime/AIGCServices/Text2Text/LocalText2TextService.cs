@@ -6,19 +6,19 @@ namespace AillieoUtils.AIGC.Implements
     {
         private class Response : ITextResponse
         {
-            public string[] GetChoices()
+            public void GetChoices(ArrayProperty<string> arrayProperty)
             {
-                return new string[] { "继续", "放弃" };
+                arrayProperty.Clear().Add(null);
             }
 
-            public string GetDescription()
+            public void GetDescription(TextProperty textProperty)
             {
-                return "一句描述而已";
+                textProperty.Value = null;
             }
 
-            public string GetImagePrompt()
+            public void GetImagePrompt(TextProperty textProperty)
             {
-                return "场景图";
+                textProperty.Value = null;
             }
         }
 

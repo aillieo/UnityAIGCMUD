@@ -25,7 +25,16 @@ namespace AillieoUtils.MUD
         public class MUDGameSettings
         {
             [TextArea]
-            public string background;
+            public string backgroundText;
+
+            [TextArea]
+            public string introText;
+
+            [TextArea]
+            public string gameStartText;
+
+            [TextArea]
+            public string defaultOption;
         }
     }
 }

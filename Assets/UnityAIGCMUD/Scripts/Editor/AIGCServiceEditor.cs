@@ -15,7 +15,14 @@ namespace AillieoUtils.AIGC.Editor
 
         public override void OnInspectorGUI()
         {
+            EditorGUI.BeginChangeCheck();
+
             base.OnInspectorGUI();
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                validationStateUpdated = false;
+            }
 
             if (this.validationStateUpdated)
             {
@@ -67,6 +74,10 @@ namespace AillieoUtils.AIGC.Editor
                 {
                     Debug.LogException(e);
                     this.validationErrorMessage = e.Message;
+                }
+                finally
+                {
+                    validationStateUpdated = true;
                 }
 
                 disableButton = false;

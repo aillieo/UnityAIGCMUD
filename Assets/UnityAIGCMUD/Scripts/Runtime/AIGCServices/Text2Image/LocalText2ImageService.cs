@@ -9,9 +9,9 @@ namespace AillieoUtils.AIGC.Implements
         {
             public Texture2D texture;
 
-            public Texture2D GetImage()
+            public void GetImage(TextureProperty textureProperty)
             {
-                return texture;
+                textureProperty.Value = texture;
             }
         }
 

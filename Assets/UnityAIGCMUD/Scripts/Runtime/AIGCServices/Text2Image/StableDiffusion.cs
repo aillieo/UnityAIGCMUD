@@ -12,28 +12,22 @@ namespace AillieoUtils.AIGC.Implements
             public string image_dimensions = "512x512";
             public int num_outputs = 1;
             public string prompt;
-            public int num_inference_steps = 20;
+            public int steps = 20;
         }
 
         [Serializable]
         private class Response : IImageResponse
         {
-            [Serializable]
-            public class ImageData
-            {
-                public string url;
-            }
+            public string[] images;
 
-            public ImageData[] items;
-
-            public Texture2D GetImage()
+            public void GetImage(TextureProperty textureProperty)
             {
-                return null;
+                textureProperty.Value = Utils.LoadImageFromBase64(images[0]);
             }
         }
 
         [SerializeField]
-        private string url = "http://localhost:7860/run/predict";
+        private string url = "http://localhost:7861/sdapi/v1/txt2img";
 
         public override Task<bool> Validate()
         {

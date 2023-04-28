@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d17484d49df14d76934da9572e1281d, type: 3}
-  m_Name: 
+  m_Name: StableDiffusion
   m_EditorClassIdentifier: 
-  url: http://localhost:7860/run/predict
+  url: http://localhost:7861/sdapi/v1/txt2img

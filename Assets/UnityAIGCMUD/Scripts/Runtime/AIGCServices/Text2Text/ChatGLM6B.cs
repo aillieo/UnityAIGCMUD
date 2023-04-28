@@ -28,12 +28,12 @@ namespace AillieoUtils.AIGC.Implements
             public string response;
             public string[] history;
 
-            public string GetDescription()
+            public void GetDescription(TextProperty textProperty)
             {
-                return response;
+                textProperty.Value = response;
             }
 
-            public string[] GetChoices()
+            public void GetChoices(ArrayProperty<string> arrayProperty)
             {
                 string rawText = this.response;
                 try
@@ -41,22 +41,24 @@ namespace AillieoUtils.AIGC.Implements
                     string[] results = Utils.ExtractWithTag(rawText, "option");
                     if (results == null || results.Length == 0)
                     {
-                        return new string[] { "继续" };
+                        arrayProperty.Clear().Add(null);
                     }
                     else
                     {
-                        return results;
+                        foreach (var r in results)
+                        {
+                            arrayProperty.Add(r);
+                        }
                     }
                 }
                 catch
                 {
-                    return new string[] { "继续" };
+                    arrayProperty.Clear().Add(null);
                 }
             }
 
-            public string GetImagePrompt()
+            public void GetImagePrompt(TextProperty textProperty)
             {
-                return null;
             }
         }
 
