@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fca01a85eb6a496fbd15ff75b93a59e, type: 3}
+  m_Name: TreasureCN
+  m_EditorClassIdentifier: 
+  text2TextService: {fileID: 11400000, guid: 7925dbf4e3af3a34cab839f652cfa351, type: 2}
+  text2ImageService: {fileID: 11400000, guid: 672fdaa4addc84eaba92029c10bbae45, type: 2}
+  settings:
+    backgroundText: "\u4F60\u662F\u4E00\u4E2A\u65E0\u6240\u754F\u60E7\u7684\u63A2\u9669\u5BB6\uFF0C\u4E00\u4E2A\u5076\u7136\u7684\u673A\u4F1A\uFF0C\u4F60\u5F97\u5230\u4E86\u4E00\u5F20\u795E\u79D8\u7684\u85CF\u5B9D\u56FE\n\u4F20\u8BF4\u5B9D\u85CF\u6709\u4E0A\u53E4\u795E\u517D\u5B88\u62A4\uFF0C\u795E\u517D\u5DF2\u7ECF\u6740\u6B7B\u4E86\u6570\u5341\u4F4D\u63A2\u9669\u5BB6"
+    introText: "\u62FF\u7740\u85CF\u5B9D\u56FE\uFF0C\u4F60\u8E0F\u4E0A\u4E86\u5BFB\u5B9D\u4E4B\u65C5\uFF0C\u6765\u5230\u4E86\u4E00\u7247\u4EBA\u8FF9\u7F55\u81F3\u7684\u6811\u6797"
+    gameStartText: "\u5F00\u59CB\u6E38\u620F"
+    defaultOption: "\u7EE7\u7EED"

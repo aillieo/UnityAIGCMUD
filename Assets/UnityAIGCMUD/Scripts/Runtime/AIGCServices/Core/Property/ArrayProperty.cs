@@ -34,7 +34,7 @@ namespace AillieoUtils.AIGC
                 if (this.value.Length != value)
                 {
                     Array.Resize(ref this.value, value);
-                    onLengthChanged?.Invoke();
+                    this.onLengthChanged?.Invoke();
                 }
             }
         }
@@ -49,7 +49,7 @@ namespace AillieoUtils.AIGC
             set
             {
                 this.value[index] = value;
-                onValueChanged?.Invoke(index);
+                this.onValueChanged?.Invoke(index);
             }
         }
 
@@ -62,7 +62,7 @@ namespace AillieoUtils.AIGC
         public ArrayProperty<T> Add(T item)
         {
             this.Length++;
-            this[Length - 1] = item;
+            this[this.Length - 1] = item;
             return this;
         }
 
@@ -73,7 +73,7 @@ namespace AillieoUtils.AIGC
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return value.GetEnumerator();
+            return this.value.GetEnumerator();
         }
     }
 }

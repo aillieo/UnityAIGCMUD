@@ -6,18 +6,20 @@ namespace AillieoUtils.MUD
 
     public class MUDGameManager
     {
-        public enum State
-        {
-            NotInitialized = 0,
-        }
-
         public static readonly MUDGameManager instance = new MUDGameManager();
+
+        public readonly SectionData model = new SectionData();
+
+        private IText2TextConext text2TextConext;
+        private IText2ImageConext text2ImageConext;
+
+        private GameConfig config;
+
+        private bool gameStartMessage = true;
 
         private MUDGameManager()
         {
         }
-
-        public readonly SectionData model = new SectionData();
 
         public event Action onGameStart;
 
@@ -27,12 +29,10 @@ namespace AillieoUtils.MUD
 
         public event Action onGameOver;
 
-        private IText2TextConext text2TextConext;
-        private IText2ImageConext text2ImageConext;
-
-        private GameConfig config;
-
-        public State state { get; private set; }
+        public GameConfig.MUDGameSettings mudSettings
+        {
+            get { return this.config.mudSettings; }
+        }
 
         public async Task<bool> Initialize(GameConfig config)
         {
@@ -42,42 +42,45 @@ namespace AillieoUtils.MUD
             return true;
         }
 
-        public GameConfig.MUDGameSettings mudSettings { get { return this.config.mudSettings; } }
-
         public void RequestGameStart()
         {
-            model.text.Value = null;
-            model.text.Value += config.mudSettings.introText;
-            model.choices.Clear().Add(config.mudSettings.gameStartText);
-            model.image.Value = null;
+            this.model.text.Value = this.config.mudSettings.introText;
+            this.model.choices.Clear().Add(this.config.mudSettings.gameStartText);
+            this.model.image.Value = null;
 
             this.onGameStart?.Invoke();
         }
 
-        public async Task Send(string optionText)
+        public async Task SendOption(string optionText)
         {
-            onBeginRequest?.Invoke();
+            this.onBeginRequest?.Invoke();
 
-            ITextResponse textResponse = await this.config.text2Text.RequestTextAsync(optionText, this.text2TextConext);
+            var sendText = optionText;
 
-            model.text.Value = string.Empty;
-            textResponse.GetDescription(model.text);
-
-            model.choices.Clear();
-            textResponse.GetChoices(model.choices);
-
-            textResponse.GetImagePrompt(model.imagePrompt);
-            if (!string.IsNullOrEmpty(model.imagePrompt.Value))
+            if (this.gameStartMessage)
             {
-                IImageResponse imageResponse = await this.config.text2Image.RequestImageAsync(model.imagePrompt.Value);
-                imageResponse.GetImage(model.image);
-            }
-            else
-            {
-                model.image.Value = null;
+                this.gameStartMessage = false;
+                sendText = string.Join("\n", this.mudSettings.backgroundText, this.mudSettings.introText, optionText);
             }
 
-            onEndRequest?.Invoke();
+            ITextResponse textResponse = await this.config.text2Text.RequestTextAsync(sendText, this.text2TextConext);
+
+            this.model.text.Value = string.Empty;
+            textResponse.GetDescription(this.model.text);
+
+            this.model.choices.Clear();
+            textResponse.GetChoices(this.model.choices);
+
+            this.model.imagePrompt.Value = string.Empty;
+            textResponse.GetImagePrompt(this.model.imagePrompt);
+
+            this.onEndRequest?.Invoke();
+        }
+
+        public async Task RequestImage()
+        {
+            IImageResponse imageResponse = await this.config.text2Image.RequestImageAsync(this.model.imagePrompt.Value, this.text2ImageConext);
+            imageResponse.GetImage(this.model.image);
         }
     }
 }

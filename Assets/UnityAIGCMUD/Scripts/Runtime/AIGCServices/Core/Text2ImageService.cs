@@ -6,6 +6,6 @@ namespace AillieoUtils.AIGC
     {
         public abstract Task<IText2ImageConext> Initialize();
 
-        public abstract Task<IImageResponse> RequestImageAsync(string prompt);
+        public abstract Task<IImageResponse> RequestImageAsync(string prompt, IText2ImageConext conext);
     }
 }

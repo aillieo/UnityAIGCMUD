@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fca01a85eb6a496fbd15ff75b93a59e, type: 3}
+  m_Name: TreasureEN
+  m_EditorClassIdentifier: 
+  text2TextService: {fileID: 11400000, guid: 7925dbf4e3af3a34cab839f652cfa351, type: 2}
+  text2ImageService: {fileID: 11400000, guid: 672fdaa4addc84eaba92029c10bbae45, type: 2}
+  settings:
+    backgroundText: You are a fearless adventurer. By chance, you have obtained a
+      mysterious treasure map. Legend has it that an ancient divine beast guards
+      the treasure, and it has already killed dozens of explorers.
+    introText: With the treasure map in hand, you set out on a journey to search
+      for treasure and arrived at a sparsely populated forest.
+    gameStartText: Start
+    defaultOption: Continue

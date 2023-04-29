@@ -39,7 +39,7 @@ namespace AillieoUtils.MUD
 
         private void OnClick()
         {
-            MUDGameManager.instance.Send(this.choiceText.text).AwaitAndCheck();
+            MUDGameManager.instance.SendOption(this.choiceText.text).AwaitAndCheck();
         }
     }
 }

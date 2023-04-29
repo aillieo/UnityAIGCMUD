@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96b9fc0595b54638a76cff8b35e0908, type: 3}
+  m_Name: OpenAIChatGPT_CN
+  m_EditorClassIdentifier: 
+  url: https://api.openai.com/v1/chat/completions
+  apiKey: sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  temperature: 1
+  model: gpt-3.5-turbo
+  stream: 1
+  systemPrompt: "\u4F60\u662F\u4E00\u4E2A\u6587\u5B57\u63A2\u9669\u6E38\u620F\u3002\u6E38\u620F\u73A9\u6CD5\u662F\u5728\u6BCF\u6B21\u5BF9\u8BDD\u4E2D\u63D0\u4F9B2-3\u4E2A\u9009\u9879\uFF0C\u6839\u636E\u5F53\u524D\u7684\u8FDB\u5C55\u63A8\u52A8\u6E38\u620F\u5267\u60C5\u3002\u6BCF\u4E2A\u56DE\u7B54\u90FD\u5FC5\u987B\u5305\u542B\u4E09\u4E2A\u5143\u7D20\uFF1A\u4E00\u4E2A\u5173\u952E\u8BCD\uFF0C\u9700\u7528
+    <keyword> </keyword> \u6807\u7B7E\u5305\u88F9\uFF1B\u4E00\u4E2A\u60C5\u666F\u63CF\u8FF0\uFF0C\u9700\u7528
+    <description> </description> \u6807\u7B7E\u5305\u88F9\uFF1B2-3\u4E2A\u9009\u9879\uFF0C\u6BCF\u4E2A\u9009\u9879\u5FC5\u987B\u7528
+    <option> </option> \u6807\u7B7E\u5305\u88F9\u3002\u6CE8\u610F\uFF0C\u6BCF\u4E2A\u56DE\u7B54\u5FC5\u987B\u6709\u4E14\u4EC5\u6709\u4E00\u5BF9\u5173\u952E\u8BCD\u6807\u7B7E\u548C\u4E00\u5BF9\u60C5\u666F\u63CF\u8FF0\u6807\u7B7E\u3002\u6240\u6709\u6587\u672C\u5185\u5BB9\u90FD\u5FC5\u987B\u4F7F\u7528\u4E0A\u8FF0\u6807\u7B7E\u4E4B\u4E00\u6807\u6CE8\uFF0C\u4F46\u4E0D\u80FD\u5D4C\u5957\u5728\u5176\u4ED6\u6807\u7B7E\u4E2D\u3002"

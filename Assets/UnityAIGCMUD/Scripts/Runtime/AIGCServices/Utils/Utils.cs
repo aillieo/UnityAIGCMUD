@@ -26,15 +26,15 @@ namespace AillieoUtils.AIGC
             }
 
             await unityWebRequest.SendWebRequestAsync();
-            string result = unityWebRequest.downloadHandler.text;
+            var result = unityWebRequest.downloadHandler.text;
             Debug.Log(result);
             return result;
         }
 
         public static async Task<TRes> PostAsync<TReq, TRes>(string url, TReq reqest, IReadOnlyDictionary<string, string> headers = null)
         {
-            string jsonData = JsonUtility.ToJson(reqest);
-            string result = await PostAsync(url, jsonData, headers);
+            var jsonData = JsonUtility.ToJson(reqest);
+            var result = await PostAsync(url, jsonData, headers);
             return JsonUtility.FromJson<TRes>(result);
         }
 
@@ -80,11 +80,11 @@ namespace AillieoUtils.AIGC
 
         public static string[] ExtractWithTag(string rawText, string tag)
         {
-            string pattern = $"<{tag}>(.*?)<\\/{tag}>";
+            var pattern = $"<{tag}>(.*?)<\\/{tag}>";
             MatchCollection matches = Regex.Matches(rawText, pattern);
 
-            string[] result = new string[matches.Count];
-            for (int i = 0; i < matches.Count; ++i)
+            var result = new string[matches.Count];
+            for (var i = 0; i < matches.Count; ++i)
             {
                 result[i] = matches[i].Groups[1].Value;
             }
@@ -94,7 +94,7 @@ namespace AillieoUtils.AIGC
 
         public static bool FindTag(string rawText, out string tag, out int index)
         {
-            string pattern = "<(\\w+)>";
+            var pattern = "<(\\w+)>";
             Match match = Regex.Match(rawText, pattern);
             if (match.Success)
             {
@@ -110,7 +110,7 @@ namespace AillieoUtils.AIGC
 
         public static bool MatchClosingTag(string rawText, string tag, out int index)
         {
-            string pattern = $"</{tag}>";
+            var pattern = $"</{tag}>";
             Match match = Regex.Match(rawText, pattern);
             if (match.Success)
             {
@@ -124,22 +124,22 @@ namespace AillieoUtils.AIGC
 
         public static bool MatchIncompleteClosingTag(string rawText, string tag)
         {
-            int index = rawText.LastIndexOf("</", StringComparison.Ordinal);
+            var index = rawText.LastIndexOf("</", StringComparison.Ordinal);
             if (index < 0)
             {
                 return false;
             }
 
-            int potentialTagLength = rawText.Length - index - 3;
+            var potentialTagLength = rawText.Length - index - 3;
 
             if (potentialTagLength + 1 > tag.Length)
             {
                 return false;
             }
 
-            int length = Math.Min(potentialTagLength, tag.Length);
+            var length = Math.Min(potentialTagLength, tag.Length);
 
-            for (int i = 0; i < length; ++i)
+            for (var i = 0; i < length; ++i)
             {
                 if (rawText[index + 2 + i] != tag[i])
                 {
@@ -152,7 +152,7 @@ namespace AillieoUtils.AIGC
 
         public static string TrimIncompleteUtf8Chars(string rawString)
         {
-            int length = rawString.Length;
+            var length = rawString.Length;
             while (length > 0 && IsIncompleteUtf8Char(rawString[length - 1]))
             {
                 length--;

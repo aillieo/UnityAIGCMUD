@@ -28,7 +28,7 @@ namespace AillieoUtils.AIGC
 
         protected override void ReceiveContentLengthHeader(ulong contentLength)
         {
-            totalLength = contentLength;
+            this.totalLength = contentLength;
         }
 
         protected override bool ReceiveData(byte[] data, int dataLength)
@@ -38,16 +38,16 @@ namespace AillieoUtils.AIGC
                 return false;
             }
 
-            onDataReceived?.Invoke(data, dataLength);
+            this.onDataReceived?.Invoke(data, dataLength);
 
-            receivedLength += (ulong)dataLength;
+            this.receivedLength += (ulong)dataLength;
 
             return true;
         }
 
         protected override void CompleteContent()
         {
-            onDownloadCompleted?.Invoke();
+            this.onDownloadCompleted?.Invoke();
             base.CompleteContent();
         }
     }

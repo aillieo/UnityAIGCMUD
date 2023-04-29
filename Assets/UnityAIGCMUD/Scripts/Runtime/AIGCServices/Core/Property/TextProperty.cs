@@ -25,7 +25,7 @@ namespace AillieoUtils.AIGC
                 if (string.CompareOrdinal(value, this.value) != 0)
                 {
                     this.value = value;
-                    onValueChanged?.Invoke();
+                    this.onValueChanged?.Invoke();
                 }
             }
         }

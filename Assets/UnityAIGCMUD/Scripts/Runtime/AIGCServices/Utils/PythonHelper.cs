@@ -9,10 +9,10 @@ namespace AillieoUtils.AIGC
     {
         public static void RunPython(string script)
         {
-            string directory = Path.GetDirectoryName(script);
-            string filemame = Path.GetFileName(script);
+            var directory = Path.GetDirectoryName(script);
+            var filemame = Path.GetFileName(script);
 
-            string executableFile = FindPython();
+            var executableFile = FindPython();
 
             if (string.IsNullOrEmpty(executableFile))
             {
@@ -20,7 +20,7 @@ namespace AillieoUtils.AIGC
                 return;
             }
 
-            ProcessStartInfo startInfo = new ProcessStartInfo();
+            var startInfo = new ProcessStartInfo();
 
             startInfo.WorkingDirectory = directory;
             startInfo.FileName = executableFile;
@@ -28,7 +28,7 @@ namespace AillieoUtils.AIGC
 
             startInfo.UseShellExecute = true;
 
-            using (Process process = Process.Start(startInfo))
+            using (var process = Process.Start(startInfo))
             {
             }
         }
@@ -91,15 +91,15 @@ namespace AillieoUtils.AIGC
         {
             foreach (EnvironmentVariableTarget target in Enum.GetValues(typeof(EnvironmentVariableTarget)))
             {
-                string pathValue = Environment.GetEnvironmentVariable(environmentVariableName, target);
+                var pathValue = Environment.GetEnvironmentVariable(environmentVariableName, target);
                 if (!string.IsNullOrEmpty(pathValue))
                 {
-                    string[] pathEntries = pathValue.Split(new char[] { environmentVariableSeparator }, StringSplitOptions.RemoveEmptyEntries);
+                    var pathEntries = pathValue.Split(new char[] { environmentVariableSeparator }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var path in pathEntries)
                     {
                         try
                         {
-                            string fullPath = Path.Combine(path, executableName);
+                            var fullPath = Path.Combine(path, executableName);
 
                             if (File.Exists(fullPath))
                             {

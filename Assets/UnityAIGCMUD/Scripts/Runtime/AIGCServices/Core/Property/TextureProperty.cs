@@ -26,7 +26,7 @@ namespace AillieoUtils.AIGC
                 if (this.value != value)
                 {
                     this.value = value;
-                    onValueChanged?.Invoke();
+                    this.onValueChanged?.Invoke();
                 }
             }
         }
