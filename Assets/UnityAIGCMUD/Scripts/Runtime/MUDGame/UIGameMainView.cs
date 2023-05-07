@@ -24,9 +24,13 @@ namespace AillieoUtils.MUD
         [SerializeField]
         private InputField inputField;
 
+        [SerializeField]
+        private AudioSource audioSource;
+
         private List<UIButton> choicesButtons = new List<UIButton>();
 
         private bool imageRequestingFlag = false;
+        private bool audioRequestingFlag = false;
 
         private void OnEnable()
         {
@@ -40,6 +44,7 @@ namespace AillieoUtils.MUD
             MUDGameManager.instance.model.choices.onValueChanged += this.OnChoiceContentChanged;
             MUDGameManager.instance.model.imagePrompt.onValueChanged += this.OnImagePromptChanged;
             MUDGameManager.instance.model.image.onValueChanged += this.OnImageChanged;
+            MUDGameManager.instance.model.audio.onValueChanged += this.OnAudioChanged;
 
             this.imageRequestingFlag = false;
         }
@@ -56,6 +61,7 @@ namespace AillieoUtils.MUD
             MUDGameManager.instance.model.choices.onValueChanged -= this.OnChoiceContentChanged;
             MUDGameManager.instance.model.imagePrompt.onValueChanged -= this.OnImagePromptChanged;
             MUDGameManager.instance.model.image.onValueChanged -= this.OnImageChanged;
+            MUDGameManager.instance.model.audio.onValueChanged -= this.OnAudioChanged;
         }
 
         private void OnGameStart()
@@ -122,20 +128,32 @@ namespace AillieoUtils.MUD
 
         private async void OnImagePromptChanged()
         {
-            if (this.imageRequestingFlag)
+            if (!this.imageRequestingFlag)
             {
-                return;
+                if (!string.IsNullOrEmpty(MUDGameManager.instance.model.imagePrompt.Value))
+                {
+                    this.imageRequestingFlag = true;
+                    await MUDGameManager.instance.RequestImage();
+                    this.imageRequestingFlag = false;
+                }
+                else
+                {
+                    MUDGameManager.instance.model.image.Value = null;
+                }
             }
 
-            if (!string.IsNullOrEmpty(MUDGameManager.instance.model.imagePrompt.Value))
+            if (!this.audioRequestingFlag)
             {
-                this.imageRequestingFlag = true;
-                await MUDGameManager.instance.RequestImage();
-                this.imageRequestingFlag = false;
-            }
-            else
-            {
-                MUDGameManager.instance.model.image.Value = null;
+                if (!string.IsNullOrEmpty(MUDGameManager.instance.model.imagePrompt.Value))
+                {
+                    this.audioRequestingFlag = true;
+                    await MUDGameManager.instance.RequestBGM();
+                    this.audioRequestingFlag = false;
+                }
+                else
+                {
+                    MUDGameManager.instance.model.audio.Value = null;
+                }
             }
         }
 
@@ -146,6 +164,20 @@ namespace AillieoUtils.MUD
             this.sceneImage.enabled = sectionData.image.Value != null;
             this.sceneImage.texture = sectionData.image.Value;
             this.sceneImageBack.texture = sectionData.image.Value;
+        }
+
+        private void OnAudioChanged()
+        {
+            SectionData sectionData = MUDGameManager.instance.model;
+            this.audioSource.clip = sectionData.audio.Value;
+            if (this.audioSource.clip != null)
+            {
+                this.audioSource.Play();
+            }
+            else
+            {
+                this.audioSource.Stop();
+            }
         }
     }
 }

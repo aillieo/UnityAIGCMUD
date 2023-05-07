@@ -12,6 +12,7 @@ namespace AillieoUtils.MUD
 
         private IText2TextConext text2TextConext;
         private IText2ImageConext text2ImageConext;
+        private IText2AudioConext text2AudioConext;
 
         private GameConfig config;
 
@@ -81,6 +82,12 @@ namespace AillieoUtils.MUD
         {
             IImageResponse imageResponse = await this.config.text2Image.RequestImageAsync(this.model.imagePrompt.Value, this.text2ImageConext);
             imageResponse.GetImage(this.model.image);
+        }
+
+        public async Task RequestBGM()
+        {
+            IAudioResponse audioResponse = await this.config.text2Audio.RequestAudioAsync(this.model.imagePrompt.Value, this.text2AudioConext);
+            audioResponse.GetAudio(this.model.audio);
         }
     }
 }

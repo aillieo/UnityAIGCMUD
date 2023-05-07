@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text2TextService: {fileID: 11400000, guid: 7925dbf4e3af3a34cab839f652cfa351, type: 2}
   text2ImageService: {fileID: 11400000, guid: 672fdaa4addc84eaba92029c10bbae45, type: 2}
+  text2AudioService: {fileID: 11400000, guid: 7cec4a7ad5856f744953b0097c2b8fbb, type: 2}
   settings:
     backgroundText: You are a fearless adventurer. By chance, you have obtained a
       mysterious treasure map. Legend has it that an ancient divine beast guards

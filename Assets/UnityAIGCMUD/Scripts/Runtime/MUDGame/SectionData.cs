@@ -8,5 +8,6 @@ namespace AillieoUtils.MUD
         public readonly ArrayProperty<string> choices = new ArrayProperty<string>();
         public readonly TextProperty imagePrompt = new TextProperty();
         public readonly TextureProperty image = new TextureProperty();
+        public readonly AudioClipProperty audio = new AudioClipProperty();
     }
 }

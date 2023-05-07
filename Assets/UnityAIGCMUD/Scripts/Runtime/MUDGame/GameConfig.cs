@@ -12,9 +12,14 @@ namespace AillieoUtils.MUD
         [SerializeField]
         private Text2ImageService text2ImageService;
 
+        [SerializeField]
+        private Text2AudioService text2AudioService;
+
         public Text2TextService text2Text { get { return this.text2TextService; } }
 
         public Text2ImageService text2Image { get { return this.text2ImageService; } }
+
+        public Text2AudioService text2Audio { get { return this.text2AudioService; } }
 
         [SerializeField]
         private MUDGameSettings settings;
