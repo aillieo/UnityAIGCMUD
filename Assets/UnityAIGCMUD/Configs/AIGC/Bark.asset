@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ced9d4c3c83c08d43bd8d35a405c1604, type: 3}
   m_Name: Bark
   m_EditorClassIdentifier: 
+  url: localhost:8000/bark
+  temp: 0.7

@@ -186,5 +186,29 @@ namespace AillieoUtils.AIGC
 
             return false;
         }
+
+        public static AudioClip BytesToAudioClip(byte[] bytes)
+        {
+            int numChannels = BitConverter.ToInt16(bytes, 22);
+            var sampleRate = BitConverter.ToInt32(bytes, 24);
+            var byteRate = BitConverter.ToInt32(bytes, 28);
+            int blockAlign = BitConverter.ToInt16(bytes, 32);
+            int bitsPerSample = BitConverter.ToInt16(bytes, 34);
+
+            var headLength = 44;
+            var clip = AudioClip.Create("WAV", bytes.Length - headLength, numChannels, sampleRate, false);
+
+            var audioSamples = new float[(bytes.Length - headLength) / 2];
+            for (var i = headLength; i < audioSamples.Length; i++)
+            {
+                // two bytes => one short => one float
+                var sample = (short)((bytes[(i * 2) + 1] << 8) | bytes[i * 2]);
+                audioSamples[i] = (float)sample / short.MaxValue;
+            }
+
+            clip.SetData(audioSamples, 0);
+
+            return clip;
+        }
     }
 }

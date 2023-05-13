@@ -2,8 +2,8 @@ from fastapi import APIRouter, Request, HTTPException
 
 router = APIRouter()
 
-@router.post("/sd")
-async def print_request_data(request: Request):
+@router.post("/glm")
+async def chat(request: Request):
     content_type = request.headers.get("Content-Type")
     user_agent = request.headers.get("User-Agent")
     if content_type != "application/json" :
@@ -12,12 +12,16 @@ async def print_request_data(request: Request):
     data = await request.json()
 
     prompt = data.get("prompt")
+    history = data.get("history")
 
-    if not isinstance(prompt, str):
+    print(f"Received request: {data}")
+
+    if not isinstance(prompt, str) or not isinstance(history, list):
         raise HTTPException(status_code=400, detail="Invalid request data")
 
-    return {"url": "url/of/some/image"}
+    history.append(prompt)
+    history_text = "\n".join(history)
 
-@router.get("/sd/images/{image_id}")
-async def read_item(image_id: int):
-    return {"url": "url/of/some/image"}
+    print(f"History: {history_text}")
+
+    return {"text": history_text}

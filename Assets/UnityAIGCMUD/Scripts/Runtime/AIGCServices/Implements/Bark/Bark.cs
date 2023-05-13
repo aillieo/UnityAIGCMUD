@@ -6,7 +6,7 @@ namespace AillieoUtils.AIGC.Implements
     public partial class Bark : Text2AudioService
     {
         [SerializeField]
-        private string url = "localhost:7860";
+        private string url = "localhost:8000/bark";
 
         [SerializeField]
         [Range(0, 1)]
